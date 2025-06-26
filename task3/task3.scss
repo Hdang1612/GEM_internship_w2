@@ -56,12 +56,10 @@ html {
   }
   &__users-list {
     width: 60%;
-    display: flex;
     gap: 2rem;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     .user-item {
-      flex: 1 1 0;
-      min-width: 49%;
       display: flex;
       border: 0.1rem solid #ccc;
       border-radius: 2rem;
@@ -131,6 +129,12 @@ html {
   }
 }
 
+@media screen and (max-width: 1200px) {
+  .content__users-list {
+    width: 80%;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .menu-icon {
     text-align: right;
@@ -144,8 +148,9 @@ html {
   }
 
   .content {
-    &__user-list {
-      width: 100%;
+    &__users-list {
+      width: 90%;
+      grid-template-columns: 1fr;
       .user-item {
         min-width: 100%;
         flex-direction: row;

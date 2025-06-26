@@ -57,13 +57,11 @@ html {
 }
 .content__users-list {
   width: 60%;
-  display: flex;
   gap: 2rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 .content__users-list .user-item {
-  flex: 1 1 0;
-  min-width: 49%;
   display: flex;
   border: 0.1rem solid #ccc;
   border-radius: 2rem;
@@ -127,6 +125,11 @@ html {
   background-color: #ddd;
 }
 
+@media screen and (max-width: 1200px) {
+  .content__users-list {
+    width: 80%;
+  }
+}
 @media screen and (max-width: 768px) {
   .menu-icon {
     text-align: right;
@@ -138,10 +141,11 @@ html {
   .menu-container .active {
     left: 0;
   }
-  .content__user-list {
-    width: 100%;
+  .content__users-list {
+    width: 90%;
+    grid-template-columns: 1fr;
   }
-  .content__user-list .user-item {
+  .content__users-list .user-item {
     min-width: 100%;
     flex-direction: row;
   }
