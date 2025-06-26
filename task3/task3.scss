@@ -1,0 +1,155 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 10px;
+  font-family: "Roboto", sans-serif;
+}
+
+.menu-icon {
+  padding: 2rem;
+  img {
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+  }
+}
+
+.menu-container {
+  width: 20%;
+  height: 100vh;
+  background: #ccc;
+  position: absolute;
+  top: 0;
+  left: -20%;
+  transition: all 0.3s ease-in-out;
+  &__close-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.menu-container.active {
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  &__header {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: large;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  &__users-list {
+    width: 60%;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    .user-item {
+      flex: 1 1 0;
+      min-width: 49%;
+      display: flex;
+      border: 0.1rem solid #ccc;
+      border-radius: 2rem;
+      padding: 1rem;
+      &__avatar {
+        width: 6rem;
+        height: 6rem;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      &__info {
+        flex: 1;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        #name {
+          font-size: 1.6rem;
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+        }
+
+        #email {
+          font-size: 1.2rem;
+          color: #555;
+        }
+      }
+    }
+  }
+  .pagination {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    &__pages {
+      margin: 0 1rem;
+    }
+    &__btns {
+      cursor: pointer;
+    }
+    &__item {
+      border: none;
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      margin: 0 0.4rem;
+      cursor: pointer;
+      border-radius: 0.5rem;
+      background-color: #eee;
+      transition: background-color 0.3s ease;
+
+      &--active {
+        background-color: #007bff;
+        color: white;
+      }
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .menu-icon {
+    text-align: right;
+  }
+  .menu-container {
+    width: 100%;
+    left: -100%;
+  }
+  .menu-container .active {
+    left: 0;
+  }
+
+  .content {
+    &__user-list {
+      width: 100%;
+      .user-item {
+        min-width: 100%;
+        flex-direction: row;
+      }
+    }
+  }
+}

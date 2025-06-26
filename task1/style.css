@@ -1,0 +1,11 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.task {
+  border-bottom: 1px solid #ccc;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
