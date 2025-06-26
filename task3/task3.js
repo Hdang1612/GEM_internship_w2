@@ -1,4 +1,4 @@
-const menuIcon = document.querySelector(".menu-icon");
+const menuIcon = document.querySelector("#menu-icon");
 const menuContainer = document.querySelector(".menu-container");
 const closeMenuBtn = document.querySelector(".menu-container__close-btn");
 const nextPageBtn = document.querySelector(".next-btn");
