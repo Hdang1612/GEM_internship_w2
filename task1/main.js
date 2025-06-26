@@ -40,7 +40,7 @@ function submit() {
   if (!name || !age) {
     return;
   }
-  if (editIndex) {
+  if (editIndex !== null) {
     user[editIndex].name = name;
     user[editIndex].age = parseInt(age);
     editIndex = null;
