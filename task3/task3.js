@@ -1,31 +1,36 @@
-const menu_icon = document.querySelector(".menu-icon");
-const menu_container = document.querySelector(".menu-container");
-const close_menu_btn = document.querySelector(".menu-container__close-btn");
-menu_icon.addEventListener("click", function () {
+const menuIcon = document.querySelector(".menu-icon");
+const menuContainer = document.querySelector(".menu-container");
+const closeMenuBtn = document.querySelector(".menu-container__close-btn");
+const nextPageBtn = document.querySelector(".next-btn");
+const prevPageBtn = document.querySelector(".prev-btn");
+menuIcon.addEventListener("click", function () {
   console.log("first");
-  if (menu_container.classList.contains("active")) {
-    menu_container.classList.remove("active");
+  if (menuContainer.classList.contains("active")) {
+    menuContainer.classList.remove("active");
   } else {
-    menu_container.classList.add("active");
+    menuContainer.classList.add("active");
   }
 });
-close_menu_btn.addEventListener("click", function () {
-  if (menu_container.classList.contains("active")) {
-    menu_container.classList.remove("active");
+closeMenuBtn.addEventListener("click", function () {
+  if (menuContainer.classList.contains("active")) {
+    menuContainer.classList.remove("active");
   } else {
-    menu_container.classList.add("active");
+    menuContainer.classList.add("active");
   }
 });
 
 window.addEventListener("click", function (event) {
   if (
-    !menu_container.contains(event.target) &&
-    !menu_icon.contains(event.target)
+    !menuContainer.contains(event.target) &&
+    !menuIcon.contains(event.target)
   ) {
-    menu_container.classList.remove("active");
+    menuContainer.classList.remove("active");
     // document.getElementsByTagName("body")[0].style.overflow = "auto";
   }
 });
+
+let currentPage = 1;
+let totalPages;
 
 function fetchUsers(page) {
   fetch(`https://reqres.in/api/users?page=${page}`, {
@@ -54,15 +59,49 @@ function fetchUsers(page) {
       `
         )
         .join("");
-      const totalPages = data.total_pages;
+      totalPages = data.total_pages;
       let paginationHTML = "";
-      for (let i = 1; i <= totalPages; i++) {
-        paginationHTML += `<button class="pagination__item${
-          i == page ? " pagination__item--active" : ""
-        }" >${i}</button>`;
-      }
+      const pages = paginate(currentPage, totalPages);
+      console.log(pages);
+      pages.forEach((item) => {
+        if (item === "...") {
+          paginationHTML += `<span style="margin:0 10px" >...</span>`;
+        } else {
+          paginationHTML += `<button class="pagination__item${
+            item == currentPage ? " pagination__item--active" : ""
+          }">${item}</button>`;
+        }
+      });
       pagination.innerHTML = paginationHTML;
     });
+}
+function paginate(current, last) {
+  const delta = 1;
+  const left = current - delta;
+  const right = current + delta + 1;
+  const range = [];
+  const rangeWithDots = [];
+  let l;
+
+  for (let i = 1; i <= last; i++) {
+    if (i === 1 || i === last || (i >= left && i < right)) {
+      range.push(i);
+    }
+  }
+
+  for (let i of range) {
+    if (l) {
+      if (i - l === 2) {
+        rangeWithDots.push(l + 1);
+      } else if (i - l !== 1) {
+        rangeWithDots.push("...");
+      }
+    }
+    rangeWithDots.push(i);
+    l = i;
+  }
+
+  return rangeWithDots;
 }
 fetchUsers(1);
 document
@@ -72,6 +111,19 @@ document
     if (btn) {
       const page = btn.textContent.trim();
       if (page) fetchUsers(Number(page));
+      currentPage = Number(page);
     }
   });
 
+nextPageBtn.addEventListener("click", () => {
+  if (currentPage < totalPages) {
+    currentPage++;
+    fetchUsers(currentPage);
+  }
+});
+prevPageBtn.addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    fetchUsers(currentPage);
+  }
+});
