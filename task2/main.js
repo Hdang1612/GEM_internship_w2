@@ -30,11 +30,15 @@ function addField() {
   const newText = document.createElement("p");
   newText.textContent = text;
   textField.appendChild(newText);
-  //   document.getElementById("text-field").innerHTML = text;
   document.getElementById("text").value = "";
 }
 
 const inputTask2_3 = document.getElementById("text_2");
+const message = document.getElementById("message");
+inputTask2_3.addEventListener("input", function () {
+  preventAlphabet(this.value);
+});
+
 function preventAlphabet(inputVal) {
   console.log(inputVal);
   const regex = /^[\d.\-\s]+$/;
@@ -45,8 +49,3 @@ function preventAlphabet(inputVal) {
     inputTask2_3.value = txt;
   }
 }
-
-const message = document.getElementById("message");
-inputTask2_3.addEventListener("input", function () {
-  preventAlphabet(this.value);
-});

@@ -25,13 +25,13 @@ window.addEventListener("click", function (event) {
     !menuIcon.contains(event.target)
   ) {
     menuContainer.classList.remove("active");
-    // document.getElementsByTagName("body")[0].style.overflow = "auto";
   }
 });
 
 let currentPage = 1;
 let totalPages;
 
+// call api fetch user
 function fetchUsers(page) {
   fetch(`https://reqres.in/api/users?page=${page}`, {
     method: "GET",
@@ -41,7 +41,6 @@ function fetchUsers(page) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       const list = document.querySelector(".content__users-list");
       const pagination = document.querySelector(".pagination__pages");
       list.innerHTML = data.data
@@ -62,7 +61,6 @@ function fetchUsers(page) {
       totalPages = data.total_pages;
       let paginationHTML = "";
       const pages = paginate(currentPage, totalPages);
-      console.log(pages);
       pages.forEach((item) => {
         if (item === "...") {
           paginationHTML += `<span style="margin:0 10px" >...</span>`;
@@ -75,6 +73,8 @@ function fetchUsers(page) {
       pagination.innerHTML = paginationHTML;
     });
 }
+
+// paginate
 function paginate(current, last) {
   const delta = 1;
   const left = current - delta;
@@ -127,3 +127,14 @@ prevPageBtn.addEventListener("click", () => {
     fetchUsers(currentPage);
   }
 });
+
+if (currentPage === 1) {
+  prevPageBtn.setAttribute("disabled", true);
+  prevPageBtn.style.opacity = 0.4;
+} else if (currentPage === totalPages) {
+  nextPageBtn.setAttribute("disabled", true);
+  nextPageBtn.style.opacity = 0.4;
+} else {
+  nextPageBtn.style.opacity = 1;
+  prevPageBtn.style.opacity = 1;
+}
