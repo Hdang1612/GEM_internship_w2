@@ -72,6 +72,11 @@ function fetchUsers(page) {
       });
       pagination.innerHTML = paginationHTML;
     });
+  console.log(currentPage);
+  prevPageBtn.disabled = currentPage === 1;
+  nextPageBtn.disabled = currentPage === totalPages;
+  prevPageBtn.style.opacity = prevPageBtn.disabled ? 0.4 : 1;
+  nextPageBtn.style.opacity = nextPageBtn.disabled ? 0.4 : 1;
 }
 
 // paginate
@@ -110,8 +115,8 @@ document
     const btn = e.target;
     if (btn) {
       const page = btn.textContent.trim();
-      if (page) fetchUsers(Number(page));
       currentPage = Number(page);
+      if (page) fetchUsers(Number(page));
     }
   });
 
@@ -128,13 +133,13 @@ prevPageBtn.addEventListener("click", () => {
   }
 });
 
-if (currentPage === 1) {
-  prevPageBtn.setAttribute("disabled", true);
-  prevPageBtn.style.opacity = 0.4;
-} else if (currentPage === totalPages) {
-  nextPageBtn.setAttribute("disabled", true);
-  nextPageBtn.style.opacity = 0.4;
-} else {
-  nextPageBtn.style.opacity = 1;
-  prevPageBtn.style.opacity = 1;
-}
+// if (currentPage === 1) {
+//   prevPageBtn.setAttribute("disabled", true);
+//   prevPageBtn.style.opacity = 0.4;
+// } else if (currentPage === totalPages) {
+//   nextPageBtn.setAttribute("disabled", true);
+//   nextPageBtn.style.opacity = 0.4;
+// } else {
+//   nextPageBtn.style.opacity = 1;
+//   prevPageBtn.style.opacity = 1;
+// }
