@@ -41,7 +41,7 @@ inputTask2_3.addEventListener("input", function () {
 
 function preventAlphabet(inputVal) {
   console.log(inputVal);
-  const regex = /^[\d.\-\s]+$/;
+  const regex = /^-?\d*(\.\d*)?$/;
   if (regex.test(inputVal)) {
     inputTask2_3.value = inputVal;
   } else {
